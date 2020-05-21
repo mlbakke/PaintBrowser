@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Paint</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="tools">
+        <div class="tools__tool tools__tool--brush">
+            <svg class="tools__icon">
+                <use xlink:href="icons/sprite.svg#icon-round-brush"></use>
+            </svg>
+            <span class="tools__text">Brush</span>
+        </div>
+        <div class="tools__tool tools__tool--thick">
+            <svg class="tools__icon">
+                <use xlink:href="icons/sprite.svg#icon-spinner9"></use>
+            </svg>
+            <span class="tools__text">Thickness</span>
+        </div>
+        <div class="tools__tool tools__tool--erase">
+            <svg class="tools__icon">
+                <use xlink:href="icons/sprite.svg#icon-eraser"></use>
+            </svg>
+            <span class="tools__text">Eraser</span>
+        </div>
+        <div class="tools__tool tools__tool--color">
+            <svg class="tools__icon">
+                <use xlink:href="icons/sprite.svg#icon-palette"></use>
+            </svg>
+            <span class="tools__text">Colors</span>
+        </div>
+        <div class="tools__tool tools__tool--bucket">
+            <svg class="tools__icon">
+                <use xlink:href="icons/sprite.svg#icon-bucket"></use>
+            </svg>
+            <span class="tools__text">Paint Bucket</span>
+        </div>
+    </div>
+
+    <canvas id="draw" width="800" height="800"></canvas>
+    
+    <script src="app.js"></script>
+</body>
+</html>
