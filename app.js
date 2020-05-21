@@ -2,7 +2,6 @@
 const canvas = document.querySelector('#draw');
 const ctx = canvas.getContext('2d');
 
-ctx.strokeStyle = 'black';
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
 ctx.lineWidth = '1';
@@ -37,7 +36,8 @@ function openThickness() {
 	console.log('åpner thickness-velger');
 }
 function openColors() {
-	console.log('åpner colors-velger');
+	const colorPicker = document.getElementById('hex');
+	colorPicker.click();
 }
 
 function useEraser() {
@@ -57,7 +57,10 @@ let lastY = 0;
 // drawing functionality
 function draw(e) {
 	if (!isDrawing) return; //don't run when not moused
-
+	// color to paint
+	const color = document.getElementById('hex').value;
+	ctx.strokeStyle = color;
+	//start painting
 	ctx.beginPath();
 	//start from -> go to
 	ctx.moveTo(lastX, lastY);
