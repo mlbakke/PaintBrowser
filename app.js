@@ -16,20 +16,20 @@ function resize() {
 window.addEventListener('load', resize);
 window.addEventListener('resize', resize);
 
-// PAINT FUNCTION
-// tools
+// TOOLBAR
+// tool variables
 const brush = document.querySelector('#brush');
 const thickness = document.querySelector('#thickness');
 const eraser = document.querySelector('#eraser');
 const color = document.querySelector('#color');
 const bucket = document.querySelector('#bucket');
-
+// tools eventListeners
 brush.addEventListener('click', openBrushes);
 thickness.addEventListener('click', openThickness);
 color.addEventListener('click', openColors);
 eraser.addEventListener('click', useEraser);
 bucket.addEventListener('click', useBucket);
-
+// tools functionality
 function openBrushes() {
 	console.log('åpner brush-velger');
 }
@@ -48,11 +48,13 @@ function useBucket() {
 	console.log('mal alt');
 }
 
-// drawing function
+// DRAWING
+// drawing variables
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
 
+// drawing functionality
 function draw(e) {
 	if (!isDrawing) return; //don't run when not moused
 
