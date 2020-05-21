@@ -2,8 +2,6 @@
 const canvas = document.querySelector('#draw');
 const ctx = canvas.getContext('2d');
 
-ctx.lineJoin = 'round';
-ctx.lineCap = 'round';
 ctx.lineWidth = '1';
 
 // FIT CANVAS TO WINDOW
@@ -20,30 +18,19 @@ window.addEventListener('resize', resize);
 const brush = document.querySelector('#brush');
 const thickness = document.querySelector('#thickness');
 const eraser = document.querySelector('#eraser');
-const color = document.querySelector('#color');
+const colorIcon = document.querySelector('#color');
+const colorPicker = document.querySelector('#hex');
 const bucket = document.querySelector('#bucket');
 // tools eventListeners
 brush.addEventListener('click', openBrushes);
-thickness.addEventListener('click', openThickness);
-color.addEventListener('click', openColors);
-eraser.addEventListener('click', useEraser);
+colorIcon.addEventListener('click', () => colorPicker.click());
+colorPicker.addEventListener('change', () => (ctx.strokeStyle = colorPicker.value));
+eraser.addEventListener('click', () => (ctx.strokeStyle = 'white'));
 bucket.addEventListener('click', useBucket);
 // tools functionality
 function openBrushes() {
 	console.log('åpner brush-velger');
 }
-function openThickness() {
-	console.log('åpner thickness-velger');
-}
-function openColors() {
-	const colorPicker = document.getElementById('hex');
-	colorPicker.click();
-}
-
-function useEraser() {
-	ctx.strokeStyle = 'white';
-}
-
 function useBucket() {
 	console.log('mal alt');
 }
@@ -57,9 +44,9 @@ let lastY = 0;
 // drawing functionality
 function draw(e) {
 	if (!isDrawing) return; //don't run when not moused
-	// color to paint
-	const color = document.getElementById('hex').value;
-	ctx.strokeStyle = color;
+	ctx.lineWidth = thickness.value;
+	ctx.lineJoin = 'round';
+	ctx.lineCap = 'round';
 	//start painting
 	ctx.beginPath();
 	//start from -> go to
