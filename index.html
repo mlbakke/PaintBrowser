@@ -10,10 +10,17 @@
 <body>
     <div class="tools">
         <div class="tools__tool" id="brush">
-            <svg class="tools__icon">
-                <use xlink:href="icons/sprite.svg#icon-round-brush"></use>
-            </svg>
-            <span class="tools__text">Brush</span>
+            <div class="brush-icon">
+                <svg class="tools__icon">
+                    <use xlink:href="icons/sprite.svg#icon-round-brush"></use>
+                </svg>
+            </div>
+            
+            <div class="dropdown">
+                <div class="dropdown-item paint">Paint brush</div>
+                <div class="dropdown-item spray">Spray paint</div>
+                <div class="dropdown-item brush-3" id="square">Connecting Brush</div>
+            </div>
         </div>
         <div class="tools__tool">
             <svg class="tools__icon">
@@ -32,12 +39,6 @@
                 <use xlink:href="icons/sprite.svg#icon-palette"></use>
             </svg>
             <input type="color" id="hex">
-        </div>
-        <div class="tools__tool" id="bucket">
-            <svg class="tools__icon">
-                <use xlink:href="icons/sprite.svg#icon-bucket"></use>
-            </svg>
-            <span class="tools__text">Paint Bucket</span>
         </div>
     </div>
 
