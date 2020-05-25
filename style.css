@@ -33,3 +33,25 @@ body {
 	stroke: var(--detail-color);
 	fill: var(--detail-color);
 }
+
+#brush {
+	position: relative;
+}
+
+.dropdown {
+	display: none;
+}
+
+.dropdown-item {
+	border-bottom: 1px dotted var(--detail-color);
+	margin: 1px;
+	width: max-content;
+}
+
+.active {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 30px;
+	left: 150%;
+}
