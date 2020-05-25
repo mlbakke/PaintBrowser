@@ -24,7 +24,6 @@ const colorPicker = document.querySelector('#hex');
 // tools eventListeners
 brush.addEventListener('click', toggleBrushes);
 colorIcon.addEventListener('click', () => colorPicker.click());
-colorPicker.addEventListener('change', () => (ctx.strokeStyle = colorPicker.value));
 eraser.addEventListener('click', () => (ctx.strokeStyle = 'white'));
 
 // BRUSH TOOL
@@ -88,7 +87,7 @@ function draw(e) {
 	ctx.lineCap = cap;
 	//start painting
 	if (currentBrush === 'paint') {
-		ctx.restore;
+		ctx.strokeStyle = colorPicker.value;
 		ctx.beginPath();
 		//start from -> go to
 		ctx.moveTo(lastX, lastY);
@@ -100,6 +99,7 @@ function draw(e) {
 		lastY = e.offsetY;
 	} else if (currentBrush === 'spray') {
 	} else if (currentBrush === 'connectingBrush') {
+		ctx.strokeStyle = colorPicker.value;
 		points.push({ x: e.clientX, y: e.clientY });
 		ctx.beginPath();
 		ctx.moveTo(points[points.length - 2].x, points[points.length - 2].y);
