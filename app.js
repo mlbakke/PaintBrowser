@@ -121,7 +121,7 @@ function draw(e) {
 			// If previous line is close to our current position, draw a line between them
 			if (d < 1000) {
 				ctx.beginPath();
-				ctx.strokeStyle = `rgba(${rgb.toString()}, 0.2)`;
+				ctx.strokeStyle = `rgba(${rgb.toString()}, 0.25)`;
 				ctx.moveTo(points[points.length - 1].x + dx * 0.2, points[points.length - 1].y + dy * 0.2);
 				ctx.lineTo(points[i].x - dx * 0.2, points[i].y - dy * 0.2);
 				ctx.stroke();
