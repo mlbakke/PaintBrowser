@@ -28,7 +28,6 @@ const colorIcon = document.querySelector('#color');
 const colorPicker = document.querySelector('#hex');
 
 // tools eventListeners
-brush.addEventListener('click', toggleBrushes);
 colorIcon.addEventListener('click', () => colorPicker.click());
 eraser.addEventListener('click', () => (ctx.strokeStyle = 'white'));
 
@@ -38,9 +37,7 @@ let join = 'round';
 let cap = 'round';
 let rotation;
 let currentBrush = 'paint';
-const paint = document.querySelector('.paint');
-const spray = document.querySelector('.spray');
-const connectingBrush = document.querySelector('.brush-3');
+const select = document.querySelector('.dropdown');
 //default lineWidth
 ctx.lineWidth = '1';
 
@@ -49,35 +46,32 @@ function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
 }
 
-function toggleBrushes() {
-	const dropdown = document.querySelector('.dropdown');
-	dropdown.classList.toggle('active');
-}
-
 //choosing a brush
-paint.addEventListener('click', function() {
-	ctx.restore;
-	currentBrush = 'paint';
-	join = 'round';
-	cap = 'round';
-	toggleBrushes();
-});
+select.addEventListener('change', changeBrush);
 
-spray.addEventListener('click', function() {
-	ctx.restore;
-	currentBrush = 'spray';
-	join = 'round';
-	cap = 'round';
-	toggleBrushes();
-});
-
-connectingBrush.addEventListener('click', function() {
-	ctx.restore;
-	currentBrush = 'connectingBrush';
-	join = 'round';
-	cap = 'round';
-	toggleBrushes();
-});
+function changeBrush(e) {
+	if (e.target.value === 'Paint brush') {
+		ctx.restore;
+		currentBrush = 'paint';
+		join = 'round';
+		cap = 'round';
+		toggleBrushes();
+	}
+	if (e.target.value === 'Spray paint') {
+		ctx.restore;
+		currentBrush = 'spray';
+		join = 'round';
+		cap = 'round';
+		toggleBrushes();
+	}
+	if (e.target.value === 'Connecting brush') {
+		ctx.restore;
+		currentBrush = 'connectingBrush';
+		join = 'round';
+		cap = 'round';
+		toggleBrushes();
+	}
+}
 
 // DRAWING
 // drawing variables
@@ -143,7 +137,7 @@ function draw(e) {
 	}
 }
 
-// Draw while mouse is clicked
+// Draw while mouse is clicked and moving
 canvas.addEventListener('mousedown', (e) => {
 	isDrawing = true;
 	[ lastX, lastY ] = [ e.offsetX, e.offsetY ];
@@ -157,5 +151,5 @@ canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', () => (isDrawing = false));
 canvas.addEventListener('mouseout', () => (isDrawing = false));
 
-//Connecting brush
+//Reset points for connecting brush when no longer clicked
 canvas.addEventListener('mouseup', () => (points.length = 0));
