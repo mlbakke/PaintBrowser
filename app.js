@@ -100,6 +100,7 @@ function draw(e) {
 	} else if (currentBrush === 'spray') {
 	} else if (currentBrush === 'connectingBrush') {
 		ctx.strokeStyle = colorPicker.value;
+		// add current point to points array to keep track of our lines
 		points.push({ x: e.clientX, y: e.clientY });
 		ctx.beginPath();
 		ctx.moveTo(points[points.length - 2].x, points[points.length - 2].y);
@@ -113,12 +114,14 @@ function draw(e) {
 			.match(/.{2}/g)
 			.map((x) => parseInt(x, 16));
 
-		// Keep track of previously painted lines
+		// go through each point we're drawing to find points closeby
 		for (let i = 0, len = points.length; i < len; i++) {
+			// for each point.x/point.y subtract last point.x/y
 			dx = points[i].x - points[points.length - 1].x;
 			dy = points[i].y - points[points.length - 1].y;
+
+			// If a previous point is closeby, draw a line between them
 			d = dx * dx + dy * dy;
-			// If previous line is close to our current position, draw a line between them
 			if (d < 1000) {
 				ctx.beginPath();
 				ctx.strokeStyle = `rgba(${rgb.toString()}, 0.25)`;
