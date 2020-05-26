@@ -26,10 +26,22 @@ const thickness = document.querySelector('#thickness');
 const eraser = document.querySelector('#eraser');
 const colorIcon = document.querySelector('#color');
 const colorPicker = document.querySelector('#hex');
+let currCol;
+let erase = false;
 
 // tools eventListeners
 colorIcon.addEventListener('click', () => colorPicker.click());
-eraser.addEventListener('click', () => (ctx.strokeStyle = 'white'));
+eraser.addEventListener('click', () => {
+	eraser.classList.toggle('active');
+	if (erase === false) {
+		currCol = colorPicker.value;
+		colorPicker.value = '#ffffff';
+		erase = true;
+	} else {
+		colorPicker.value = currCol;
+		erase = false;
+	}
+});
 
 // BRUSH TOOL
 // brush stroke variables
@@ -50,26 +62,21 @@ function getRandomFloat(min, max) {
 select.addEventListener('change', changeBrush);
 
 function changeBrush(e) {
-	if (e.target.value === 'Paint brush') {
-		ctx.restore;
-		currentBrush = 'paint';
+	const target = e.target.value;
+	ctx.restore;
+	currentBrush = target;
+
+	if (target === 'paint') {
 		join = 'round';
 		cap = 'round';
-		toggleBrushes();
 	}
-	if (e.target.value === 'Spray paint') {
-		ctx.restore;
-		currentBrush = 'spray';
+	if (target === 'spray') {
 		join = 'round';
 		cap = 'round';
-		toggleBrushes();
 	}
-	if (e.target.value === 'Connecting brush') {
-		ctx.restore;
-		currentBrush = 'connectingBrush';
+	if (target === 'connecting') {
 		join = 'round';
 		cap = 'round';
-		toggleBrushes();
 	}
 }
 
@@ -89,7 +96,7 @@ function draw(e) {
 	ctx.lineJoin = join;
 	ctx.lineCap = cap;
 	//start painting
-	if (currentBrush === 'paint') {
+	if (currentBrush === 'paint' || erase) {
 		ctx.strokeStyle = colorPicker.value;
 		ctx.beginPath();
 		//start from -> go to
@@ -101,7 +108,7 @@ function draw(e) {
 		lastX = e.offsetX;
 		lastY = e.offsetY;
 	} else if (currentBrush === 'spray') {
-	} else if (currentBrush === 'connectingBrush') {
+	} else if (currentBrush === 'connecting') {
 		ctx.strokeStyle = colorPicker.value;
 		ctx.lineWidth = 1;
 		// add current point to points array to keep track of our lines
@@ -142,7 +149,7 @@ canvas.addEventListener('mousedown', (e) => {
 	isDrawing = true;
 	[ lastX, lastY ] = [ e.offsetX, e.offsetY ];
 
-	if (currentBrush === 'connectingBrush') {
+	if (currentBrush === 'connecting') {
 		points.push({ x: e.clientX, y: e.clientY });
 	}
 });
