@@ -78,6 +78,10 @@ function changeBrush(e) {
 		join = 'round';
 		cap = 'round';
 	}
+	if (target === 'spikes') {
+		join = 'miter';
+		cap = 'butt';
+	}
 }
 
 // DRAWING
@@ -86,6 +90,8 @@ let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
 
+// density for spray
+let density = 50;
 // tracker for connecting brush
 let points = [];
 
@@ -108,11 +114,17 @@ function draw(e) {
 		lastX = e.offsetX;
 		lastY = e.offsetY;
 	} else if (currentBrush === 'spray') {
+		for (let i = density; i--; ) {
+			ctx.fillStyle = colorPicker.value;
+			let angle = getRandomFloat(0, Math.PI * 2);
+			let radius = getRandomFloat(0, thickness.value);
+			ctx.fillRect(e.offsetX + radius * Math.cos(angle), e.offsetY + radius * Math.sin(angle), 1, 1);
+		}
 	} else if (currentBrush === 'connecting') {
 		ctx.strokeStyle = colorPicker.value;
 		ctx.lineWidth = 1;
 		// add current point to points array to keep track of our lines
-		points.push({ x: e.clientX, y: e.clientY });
+		points.push({ x: e.offsetX, y: e.offsetY });
 		ctx.beginPath();
 		ctx.moveTo(points[points.length - 2].x, points[points.length - 2].y);
 		ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
@@ -141,6 +153,15 @@ function draw(e) {
 				ctx.stroke();
 			}
 		}
+	} else if (currentBrush === 'spikes') {
+		ctx.strokeStyle = colorPicker.value;
+		ctx.beginPath();
+		ctx.moveTo(lastX, lastY);
+		ctx.lineTo(e.offsetX * getRandomFloat(0.9, 1.1), e.offsetY * getRandomFloat(0.9, 1.1));
+		ctx.stroke();
+		//update lastX and lastY
+		lastX = e.offsetX;
+		lastY = e.offsetY;
 	}
 }
 
@@ -150,7 +171,7 @@ canvas.addEventListener('mousedown', (e) => {
 	[ lastX, lastY ] = [ e.offsetX, e.offsetY ];
 
 	if (currentBrush === 'connecting') {
-		points.push({ x: e.clientX, y: e.clientY });
+		points.push({ x: e.offsetX, y: e.offsetY });
 	}
 });
 canvas.addEventListener('mousemove', draw);
