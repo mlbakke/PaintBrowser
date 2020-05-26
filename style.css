@@ -31,7 +31,7 @@ body {
 	height: 1.2em;
 	stroke-width: 0;
 	stroke: var(--detail-color);
-	fill: var(--detail-color);
+	fill: currentColor;
 }
 
 #brush {
@@ -44,4 +44,9 @@ body {
 .dropdown {
 	border: 1px solid black;
 	margin-left: .5em;
+}
+
+.active {
+	transform: scale(1.1);
+	color: rgb(19, 19, 204);
 }
