@@ -1,13 +1,19 @@
 // CANVAS
 const canvas = document.querySelector('#draw');
 const ctx = canvas.getContext('2d');
-
-ctx.lineWidth = '1';
+// canvas widht and height
+let w = canvas.width,
+	h = canvas.height;
 
 // FIT CANVAS TO WINDOW
 function resize() {
+	// save current painting
+	let temp = ctx.getImageData(0, 0, w, h);
 	canvas.width = window.innerWidth - 4;
 	canvas.height = window.innerHeight - 38;
+	(w = canvas.width), (h = canvas.height);
+	//keep current painting when resizing window
+	ctx.putImageData(temp, 0, 0);
 }
 
 window.addEventListener('load', resize);
@@ -35,6 +41,9 @@ let currentBrush = 'paint';
 const paint = document.querySelector('.paint');
 const spray = document.querySelector('.spray');
 const connectingBrush = document.querySelector('.brush-3');
+//default lineWidth
+ctx.lineWidth = '1';
+
 // get random float for spray paint
 function getRandomFloat(min, max) {
 	return Math.random() * (max - min) + min;
