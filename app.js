@@ -36,6 +36,8 @@ eraser.addEventListener('click', () => {
 	if (erase === false) {
 		currCol = colorPicker.value;
 		colorPicker.value = '#ffffff';
+		join = 'round';
+		cap = 'round';
 		erase = true;
 	} else {
 		colorPicker.value = currCol;
@@ -118,6 +120,7 @@ function draw(e) {
 			ctx.fillStyle = colorPicker.value;
 			let angle = getRandomFloat(0, Math.PI * 2);
 			let radius = getRandomFloat(0, thickness.value);
+			// fill 1*1 dots within a round radius of the pointer
 			ctx.fillRect(e.offsetX + radius * Math.cos(angle), e.offsetY + radius * Math.sin(angle), 1, 1);
 		}
 	} else if (currentBrush === 'connecting') {
