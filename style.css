@@ -36,22 +36,12 @@ body {
 
 #brush {
 	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .dropdown {
-	display: none;
-}
-
-.dropdown-item {
-	border-bottom: 1px dotted var(--detail-color);
-	margin: 1px;
-	width: max-content;
-}
-
-.active {
-	display: flex;
-	flex-direction: column;
-	position: absolute;
-	top: 30px;
-	left: 150%;
+	border: 1px solid black;
+	margin-left: .5em;
 }

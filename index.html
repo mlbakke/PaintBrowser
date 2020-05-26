@@ -10,17 +10,15 @@
 <body>
     <div class="tools">
         <div class="tools__tool" id="brush">
-            <div class="brush-icon">
+            <label for="brushes"></label>
                 <svg class="tools__icon">
                     <use xlink:href="icons/sprite.svg#icon-round-brush"></use>
                 </svg>
-            </div>
-            
-            <div class="dropdown">
-                <div class="dropdown-item paint">Paint brush</div>
-                <div class="dropdown-item spray">Spray paint</div>
-                <div class="dropdown-item brush-3" id="square">Connecting Brush</div>
-            </div>
+            <select class="dropdown" id="brushes">
+                <option id="0" class="dropdown-item paint">Paint brush</div>
+                <option id="1" class="dropdown-item spray">Spray paint</div>
+                <option id="2" class="dropdown-item connectingBrush">Connecting brush</div>
+            </select>
         </div>
         <div class="tools__tool">
             <svg class="tools__icon">
